@@ -1,15 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<PageHeader @pageChanged="changeMessage" ref="header"/>
+<div class="p-2">
+  {{message}}
+</div>
+
+<button @click="click1"></button>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PageHeader from './components/Header.vue'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      message: "other message"
+    }
+  },
   components: {
-    HelloWorld
+    PageHeader
+  },
+  methods: {
+    'changeMessage':function(index) {
+      this.message = "now displaying page " + index
+    },
+    'click1': function() {
+      this.$refs.header.currentPage = 1;
+    }
   }
 }
 </script>
@@ -21,6 +38,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>
