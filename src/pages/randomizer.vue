@@ -3,6 +3,12 @@
 </template>
 <script>
   export default {
-    name: "requestPage"
+    name: "requestPage",
+    data(){
+      return {
+        displayName: "Рандомайзер",
+        index: 1
+      }
+    }
   }
 </script>

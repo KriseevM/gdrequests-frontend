@@ -16,21 +16,14 @@
 </nav>
 </template>
 <script>
+import pages from './../pages'
+let pageData = pages.map((page) => { return { name: page.name, display: page.data().displayName, index: page.data().index }; })
 export default ({
     name: 'PageHeader',
     data()
     {
         return {
-            pages: [
-                {
-                    name: "request",
-                    display: "Предложить уровень"
-                },
-                {
-                    name: "randomizer",
-                    display: "Рандомайзер"
-                }
-            ],
+            pages: pageData,
             currentPage: 0
         }
     },

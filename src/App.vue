@@ -1,7 +1,8 @@
 <template>
-<PageHeader @pageChanged="changeMessage" ref="header"/>
+<PageHeader @pageChanged="changePage"/>
 <div class="container pt-1 bg-dark h-100 w-sm-75">
-  <component :is="currentPageName"></component>
+  <component :is="this.pages[currentPage]"></component>
+  
 </div>
 
 </template>
@@ -9,22 +10,23 @@
 <script>
 import PageHeader from './components/Header.vue'
 import pages from './pages'
+
+
 export default {
   name: 'App',
-  computed: {
-    currentPageName() {
-      return this.$refs.header.pages[this.$refs.header.currentPage].name
+  data() {
+    return {
+      currentPage: 0,
+      pages: pages
     }
   },
   components: {
-    PageHeader, pages
+    PageHeader
   },
   methods: {
-    'changeMessage':function(index) {
-      this.message = "now displaying page " + index
-    },
-    'click1': function() {
-      this.$refs.header.currentPage = 1;
+    changePage(newPageIndex)
+    {
+      this.currentPage = newPageIndex;
     }
   }
 }
