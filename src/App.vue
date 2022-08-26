@@ -10,8 +10,6 @@
 <script>
 import PageHeader from './components/Header.vue'
 import pages from './pages'
-console.log("app")
-console.log(pages)
 let component = {
   name: 'App',
   data() {
