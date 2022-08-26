@@ -3,7 +3,7 @@
 </template>
 <script>
   export default {
-    name: "requestPage",
+    name: "randomizerPage",
     data(){
       return {
         displayName: "Рандомайзер",

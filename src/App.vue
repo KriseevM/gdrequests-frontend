@@ -1,7 +1,7 @@
 <template>
 <PageHeader @pageChanged="changePage"/>
 <div class="container pt-1 bg-dark h-100 w-sm-75">
-  <component :is="this.pages[currentPage]"></component>
+  <component :is="this.pageNames[currentPage]"></component>
   
 </div>
 
@@ -10,14 +10,14 @@
 <script>
 import PageHeader from './components/Header.vue'
 import pages from './pages'
-
-
-export default {
+console.log("app")
+console.log(pages)
+let component = {
   name: 'App',
   data() {
     return {
       currentPage: 0,
-      pages: pages
+      pageNames: pages.map(page => page.name)
     }
   },
   components: {
@@ -30,6 +30,10 @@ export default {
     }
   }
 }
+pages.forEach(page => {
+  component.components[page.name] = page
+})
+export default component
 </script>
 
 <style>

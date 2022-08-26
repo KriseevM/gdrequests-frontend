@@ -18,6 +18,10 @@
 <script>
 import pages from './../pages'
 let pageData = pages.map((page) => { return { name: page.name, display: page.data().displayName, index: page.data().index }; })
+//pageData.sort((a, b) => a.index - b.index)
+console.log("header")
+console.log(pages)
+console.log(pageData)
 export default ({
     name: 'PageHeader',
     data()

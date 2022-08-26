@@ -3,7 +3,7 @@
 </template>
 <script>
   export default {
-    name: "randomizerPage",
+    name: "requestPage",
     data(){
       return {
         displayName: "Предложить уровень",
