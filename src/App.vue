@@ -1,34 +1,38 @@
 <template>
-<PageHeader @pageChanged="changeMessage" ref="header"/>
-<div class="p-2">
-  {{message}}
+<PageHeader @pageChanged="changePage" :pages="pageDisplayNames" />
+
+<div class="container pt-1 bg-dark h-100 w-sm-75">
+  <component :is="this.pageNames[currentPage]"></component>
 </div>
 
-<button @click="click1"></button>
 </template>
 
 <script>
 import PageHeader from './components/Header.vue'
-
-export default {
+import pages from './pages'
+let component = {
   name: 'App',
   data() {
     return {
-      message: "other message"
+      currentPage: 0,
+      pageNames: pages.map(page => page.name),
+      pageDisplayNames: pages.map(page => page.data().displayName)
     }
   },
   components: {
     PageHeader
   },
   methods: {
-    'changeMessage':function(index) {
-      this.message = "now displaying page " + index
-    },
-    'click1': function() {
-      this.$refs.header.currentPage = 1;
+    changePage(newPageIndex)
+    {
+      this.currentPage = newPageIndex;
     }
   }
 }
+pages.forEach(page => {
+  component.components[page.name] = page
+})
+export default component
 </script>
 
 <style>

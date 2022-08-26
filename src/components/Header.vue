@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg bg-light mb-1 border-bottom">
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img src="logo.svg"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item" v-for="(page, index) in pages" v-bind:key="index">
-          <a class="nav-link" :class="{ active: currentPage === index }" aria-current="page" :act="page.name" href="#" @click="currentPage = index">{{page.display}}</a>
+          <a class="nav-link" :class="{ active: currentPage === index }" aria-current="page" href="#" @click="currentPage = index">{{page}}</a>
         </li>
       </ul>
     </div>
@@ -16,21 +16,15 @@
 </nav>
 </template>
 <script>
+//import pages from './../pages'
 export default ({
     name: 'PageHeader',
+    props: {
+      pages: Array
+    },
     data()
     {
         return {
-            pages: [
-                {
-                    name: "request",
-                    display: "Предложить уровень"
-                },
-                {
-                    name: "randomizer",
-                    display: "Рандомайзер"
-                }
-            ],
             currentPage: 0
         }
     },
