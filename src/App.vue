@@ -1,7 +1,7 @@
 <template>
 <PageHeader @pageChanged="changePage" :pages="pageDisplayNames" />
 
-<div class="container pt-1 bg-dark h-100 w-sm-75">
+<div class="container pt-1 bg-light border h-100 w-sm-75">
   <component :is="this.pageNames[currentPage]"></component>
 </div>
 
