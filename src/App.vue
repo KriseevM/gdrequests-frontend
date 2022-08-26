@@ -1,24 +1,23 @@
 <template>
 <PageHeader @pageChanged="changeMessage" ref="header"/>
-<div class="p-2">
-  {{message}}
+<div class="container pt-1 bg-dark h-100 w-sm-75">
+  <component :is="currentPageName"></component>
 </div>
 
-<button @click="click1"></button>
 </template>
 
 <script>
 import PageHeader from './components/Header.vue'
-
+import pages from './pages'
 export default {
   name: 'App',
-  data() {
-    return {
-      message: "other message"
+  computed: {
+    currentPageName() {
+      return this.$refs.header.pages[this.$refs.header.currentPage].name
     }
   },
   components: {
-    PageHeader
+    PageHeader, pages
   },
   methods: {
     'changeMessage':function(index) {
