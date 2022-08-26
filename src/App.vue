@@ -1,8 +1,8 @@
 <template>
-<PageHeader @pageChanged="changePage"/>
+<PageHeader @pageChanged="changePage" :pages="pageDisplayNames" />
+
 <div class="container pt-1 bg-dark h-100 w-sm-75">
   <component :is="this.pageNames[currentPage]"></component>
-  
 </div>
 
 </template>
@@ -15,7 +15,8 @@ let component = {
   data() {
     return {
       currentPage: 0,
-      pageNames: pages.map(page => page.name)
+      pageNames: pages.map(page => page.name),
+      pageDisplayNames: pages.map(page => page.data().displayName)
     }
   },
   components: {

@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item" v-for="(page, index) in pages" v-bind:key="index">
-          <a class="nav-link" :class="{ active: currentPage === index }" aria-current="page" :act="page.name" href="#" @click="currentPage = index">{{page.display}}</a>
+          <a class="nav-link" :class="{ active: currentPage === index }" aria-current="page" href="#" @click="currentPage = index">{{page}}</a>
         </li>
       </ul>
     </div>
@@ -16,15 +16,15 @@
 </nav>
 </template>
 <script>
-import pages from './../pages'
-let pageData = pages.map((page) => { return { name: page.name, display: page.data().displayName, index: page.data().index }; })
-
+//import pages from './../pages'
 export default ({
     name: 'PageHeader',
+    props: {
+      pages: Array
+    },
     data()
     {
         return {
-            pages: pageData,
             currentPage: 0
         }
     },
