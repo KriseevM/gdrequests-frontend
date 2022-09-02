@@ -49,8 +49,6 @@
             }
           }
         });
-
-        
       },
       requestButtonClick()
       {
@@ -65,6 +63,8 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button{
   appearance: textfield !important; 
   -webkit-appearance: none !important; 
+}
+input[type=number]{
   -moz-appearance: textfield !important;
 }
 </style>
