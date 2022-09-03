@@ -23,7 +23,8 @@
         levelid: '',
         requestResult: '',
         requestSuccess: false,
-        statusVisible: false
+        statusVisible: false,
+        lastDisplayingId: -1
       }
     },
     methods: {
@@ -35,12 +36,14 @@
           {
             this.formValid = false
             this.isValidating = false
+            this.hideStatusMessage()
             return
           }
           if(+this.levelid < 100 || +this.levelid > 100000000)
           {
             this.formValid = false
             this.isValidating = false
+            this.displayStatusMessage(() =>{}, 'ID уровня должен быть между 100 и 100000000')
             return
           }
           let response = await fetch("/api/gdserver.CheckLevel?levelId=" + this.levelid)
@@ -50,11 +53,13 @@
             {
               this.formValid = true
               this.isValidating = false
+              this.hideStatusMessage()
             }
             else
             {
               this.formValid = false
               this.isValidating = false
+              this.displayStatusMessage(() =>{}, 'Уровня нет на серверах Geometry Dash')
             }
           }
         });
@@ -71,12 +76,13 @@
             'Content-Type': 'application/json'
           }
         })
+        let requestResult;
         if(response.ok)
         {
           if(await response.text() === "ok")
           {
             this.requestSuccess = true
-            this.requestResult = 'Уровень добавлен в базу данных'
+            requestResult = 'Уровень добавлен в базу данных'
             this.levelid = ''
             this.formValid = false
           }
@@ -86,25 +92,40 @@
           switch(response.status)
           {
             case 409:
-              this.requestResult = 'Уровень уже есть в базе данных'
+              requestResult = 'Уровень уже есть в базе данных'
               this.formValid = false
               break;
             case 410:
-              this.requestResult = 'Уровня нет на серверах Geometry Dash'
+              requestResult = 'Уровня нет на серверах Geometry Dash'
               break;
             default:
-              this.requestResult = 'Неизвестная ошибка'
+              requestResult = 'Неизвестная ошибка'
               break;
           }
         }
-        this.displayStatusMessage(() => { this.isValidating = false });
+        this.displayStatusMessage(() => { this.isValidating = false }, requestResult);
       },
-      displayStatusMessage(callback) {
-        this.statusVisible = true
-        setTimeout(() => {
+      displayStatusMessage(callback, message) {
+        if(this.statusVisible) {
           this.statusVisible = false
-          callback()
-        }, 2000)
+        }
+        clearTimeout(this.lastDisplayingId) // Cancel previous animation
+        this.lastDisplayingId = setTimeout(() => {
+          if(typeof message === "string")
+            this.requestResult = message
+          this.statusVisible = true
+          this.lastDisplayingId = setTimeout(() => {
+            this.statusVisible = false
+            callback()
+          }, 2000)
+        }, 300)
+      },
+      hideStatusMessage() {
+        if(!this.statusVisible) {
+          return
+        }
+        clearTimeout(this.lastDisplayingId) // Cancel previous animation
+        this.statusVisible = false
       }
     }
   }
